@@ -44,11 +44,10 @@ public class Register extends HttpServlet  {
 				
 				
 				resp.setContentType("text/html");
-				out.println("<h3> successfully registered </h3>");
+				out.println("<h3> successfully registered!! Now you can login </h3>");
 				
-				RequestDispatcher rd = req.getRequestDispatcher("/register.jsp");
+				RequestDispatcher rd = req.getRequestDispatcher("/login.jsp");
 				rd.include(req, resp);
-				out.println("<h3>" + count + " row affected </h3>");
 				
 			}
 			else {
@@ -75,4 +74,8 @@ public class Register extends HttpServlet  {
 		
 	}
 	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+	}
 }

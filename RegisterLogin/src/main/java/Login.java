@@ -6,12 +6,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.yash.model.User;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/loginForm")
 public class Login extends HttpServlet {
@@ -36,6 +39,16 @@ public class Login extends HttpServlet {
 			
 			if(rs.next()) {
 				System.out.println("successfully login");
+				
+				User user = new User();
+				user.setName(rs.getString("name"));
+				user.setEmail(rs.getString("email"));				
+				user.setGender(rs.getString("gender"));				
+				user.setCity(rs.getString("city"));				
+				
+				HttpSession session = req.getSession();
+				session.setAttribute("session_user", user);
+				
 				RequestDispatcher rd = req.getRequestDispatcher("/profile.jsp");
 				rd.include(req, resp);
 			}
